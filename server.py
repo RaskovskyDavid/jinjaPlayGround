@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 import random
 import datetime
-import requests
+import requests 
 app = Flask(__name__)
 
 @app.route('/')
@@ -21,5 +21,12 @@ def guess(name):
     age_data = age_response.json()
     age = age_data["age"]
     return render_template("guess.html", name=name, gender=gender, age=age)     
+
+@app.route('/blog')
+def blog():
+    blog_url="https://api.npoint.io/ba1ee2b4217664c7159c"
+    blog_response =requests.get(blog_url)
+    all_post= blog_response.json()
+    return render_template("blog.html", all_post=all_post["articles"]);
 if __name__ == "__main__":
     app.run(debug=True) 
